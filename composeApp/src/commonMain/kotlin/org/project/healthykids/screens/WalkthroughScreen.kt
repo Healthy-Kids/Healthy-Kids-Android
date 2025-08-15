@@ -3,6 +3,7 @@ package org.project.healthykids.screens
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -35,9 +36,12 @@ import androidx.compose.ui.unit.sp
 import com.natighajiyev.common.colors.Grayscale50
 import com.natighajiyev.common.colors.Grayscale900
 import com.natighajiyev.common.colors.PrimaryColors
+import com.natighajiyev.common.colors.PrimaryColors.BackgroundColor
 import healthykids.composeapp.generated.resources.Res
+import healthykids.composeapp.generated.resources.bottomVector
 import healthykids.composeapp.generated.resources.healthy_kids
 import healthykids.composeapp.generated.resources.next
+import healthykids.composeapp.generated.resources.topVector
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.Font
 import org.jetbrains.compose.resources.painterResource
@@ -50,6 +54,7 @@ import org.project.healthykids.models.WalkthroughModel
 fun WalkthroughScreen(
     modifier: Modifier = Modifier,
     walkthroughList: List<WalkthroughModel>,
+    onFinished: () -> Unit,
 ) {
     val pagerState = rememberPagerState(initialPage = 0) { walkthroughList.size }
     val coroutineScope = rememberCoroutineScope()
@@ -62,7 +67,7 @@ fun WalkthroughScreen(
             modifier = modifier
                 .align(Alignment.CenterHorizontally)
                 .padding(top = 94.dp)
-                .size(100.dp),
+                .size(140.dp),
             text = stringResource(Res.string.healthy_kids),
             style = TextStyle(
                 fontSize = 20.sp,
@@ -88,11 +93,14 @@ fun WalkthroughScreen(
                 .size(width = 200.dp, height = 55.dp),
             shape = RoundedCornerShape(12.dp),
             onClick = {
-                coroutineScope.launch { animateCarouselScrollPager(pagerState) }
+                coroutineScope.launch {
+                    if (pagerState.currentPage >= walkthroughList.lastIndex) {
 
-//                if(pagerState.currentPage >= walkthroughList.size-1) {
-//                    viewModel.postEvent(OnboardingContract.OnboardingEvent.WalkthroughViewed)
-//                }
+                        onFinished()
+                    } else {
+                        animateCarouselScrollPager(pagerState)
+                    }
+                }
             },
             colors = ButtonDefaults.buttonColors(containerColor = PrimaryColors.Primary900)
         ) {
@@ -107,12 +115,9 @@ fun WalkthroughScreen(
                     textAlign = TextAlign.Center
                 )
             )
-
         }
-
     }
 }
-
 
 
 @Composable
@@ -124,7 +129,6 @@ fun WalkthroughComponent(
         modifier = modifier
             .fillMaxWidth()
             .fillMaxHeight(0.78f)
-            .background(Grayscale50)
     ) {
         Image(
             modifier = modifier
@@ -139,6 +143,7 @@ fun WalkthroughComponent(
             modifier = modifier
                 .padding(horizontal = 48.dp)
                 .padding(top = 32.dp)
+                .padding(bottom = 52.dp)
                 .fillMaxWidth(),
             text = walkthroughModel.title,
             style = TextStyle(
@@ -198,6 +203,8 @@ fun Dot(
 }
 
 suspend fun animateCarouselScrollPager(pagerState: PagerState) {
+
     val nextPage = (pagerState.currentPage + 1)
     pagerState.animateScrollToPage(page = nextPage)
 }
+

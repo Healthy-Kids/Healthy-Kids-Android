@@ -1,3 +1,25 @@
 <resources>
-    <string name="app_name">Healthy Kids</string>
+    <string name="healthy_kids">Healthy Kids</string>
+
+    <!-- Buttons -->
+    <string name="next">Next</string>
+    <string name="registration_title">Регистрация</string>
+    <string name="first_name_label">Имя</string>
+    <string name="last_name_label">Фамилия</string>
+    <string name="phone_label">+994 __ ___ __ __</string>
+    <string name="email_label">E-Mail</string>
+    <string name="consent_text">Я даю согласие на обработку моих личных данных</string>
+    <string name="register_button">Зарегистрироваться</string>
+    <string name="have_account">У вас уже есть аккаунт? </string>
+    <string name="login_button">Войти</string>
+
+    <!-- Login & Forgot Password -->
+    <string name="login_title">Войти</string>
+    <string name="password_label">Пароль</string>
+    <string name="forgot_password_question">Забыли пароль?</string>
+    <string name="forgot_password_link">Восстановить пароль</string>
+    <string name="forgot_password_title">Восстановить пароль</string>
+    <string name="forgot_password_description">Напишите свой мейл и мы отправим пароль</string>
+    <string name="forgot_password_next">Далее</string>
+    <string name="back_button">Назад</string>
 </resources>
