@@ -1,4 +1,4 @@
-package org.project.healthykids.screens
+package org.project.healthykids.screens.registrations
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape

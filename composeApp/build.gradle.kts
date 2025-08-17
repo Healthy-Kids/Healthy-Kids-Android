@@ -31,12 +31,24 @@ kotlin {
 
     sourceSets {
         androidMain.dependencies {
+            implementation(project(":domain"))
+            implementation(project(":common"))
+            implementation(project(":data"))
+
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
+
+            implementation(libs.koin.core)
+            implementation(libs.koin.android)
+//            implementation(libs.koin.androidx.viewmodel)
+//            implementation(libs.koin.androidx.navigation)
+//            implementation(libs.koin.androidx.compose)
+
         }
         commonMain.dependencies {
             implementation(project(":domain"))
             implementation(project(":common"))
+            implementation(project(":data"))
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material3)
@@ -45,9 +57,16 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtimeCompose)
+
+//            implementation(libs.koin.core)
+//            implementation(libs.koin.android)
+//            implementation(libs.koin.androidx.viewmodel)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
+        }
+        iosMain.dependencies {
+            implementation(libs.koin.core)
         }
     }
 }

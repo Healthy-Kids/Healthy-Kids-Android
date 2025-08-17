@@ -1,4 +1,4 @@
-package org.project.healthykids.screens
+package org.project.healthykids.screens.registrations
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -20,8 +20,6 @@ import healthykids.composeapp.generated.resources.email_label
 import healthykids.composeapp.generated.resources.forgot_password_title
 import healthykids.composeapp.generated.resources.forgot_password_description
 import healthykids.composeapp.generated.resources.forgot_password_next
-import healthykids.composeapp.generated.resources.back_button
-import healthykids.composeapp.generated.resources.login_button
 import org.jetbrains.compose.resources.Font
 import org.jetbrains.compose.resources.stringResource
 import org.project.healthykids.common.AppFonts

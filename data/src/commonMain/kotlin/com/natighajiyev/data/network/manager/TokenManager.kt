@@ -9,20 +9,23 @@ class TokenManager(
     private val db: HealthyKidsDatabase,
 ) {
 
-    fun getTokens(): List<TokenResponse>? {
-        return db.healthyKidsDatabaseQueries
+    fun getTokens(): TokenResponse? {
+        val tokens = db.healthyKidsDatabaseQueries
             .selectToken(::mapToTokenModel)
             .executeAsList()
+
+        if (tokens.isEmpty()) return null
+
+        return tokens.first()
     }
 
     fun saveTokens(tokenResponse: TokenResponse) {
-//        val token = mapToToken(tokenResponse)
-//        return db.healthyKidsDatabaseQueries
-//            .insertToken(token)
-
+        val token = mapToToken(tokenResponse)
+        db.healthyKidsDatabaseQueries
+            .insertToken(token.refreshToken, token.accessToken)
     }
 
     fun removeAccessToken() {
-
+        db.healthyKidsDatabaseQueries.clearToken()
     }
 }

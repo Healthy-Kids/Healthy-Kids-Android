@@ -13,6 +13,7 @@ androidx-testExt = "1.2.1"
 composeHotReload = "1.0.0-alpha10"
 composeMultiplatform = "1.8.1"
 junit = "4.13.2"
+kmpViewmodel = "1.6.10"
 kotlin = "2.1.21"
 kotlinx-coroutines = "1.10.2"
 kotlinStdlib = "2.1.21"
@@ -30,7 +31,7 @@ navigationCompose = "2.8.7"
 ktor = "2.3.5"
 serializationVersion = "1.6.3"
 datetime = "0.6.0"
-koin = "3.5.3"
+koin = "4.0.3"
 sqlDelight = "2.0.2"
 
 [libraries]
@@ -73,6 +74,13 @@ koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", versi
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koin" }
+koin-androidx-workmanager = { module = "io.insert-koin:koin-androidx-workmanager", version.ref = "koin" }
+koin-androidx-navigation = { module = "io.insert-koin:koin-androidx-navigation", version.ref = "koin" }
+koin-android-compat = { module = "io.insert-koin:koin-android-compat", version.ref = "koin" }
+koin-androidx-viewmodel = { module = "org.koin:koin-androidx-viewmodel", version.ref = "koin" }
+koin-androidx-scope = { module = "org.koin:koin-androidx-scope", version.ref = "koin" }
+koin-androidx-fragment = { module = "org.koin:koin-androidx-fragment", version.ref = "koin" }
+koin-androidx-lifecycle = { module = "androidx.lifecycle:lifecycle-viewmodel-savedstate", version.ref = "koin" }
 
 sql-delight-coroutines-extensions = { module = "app.cash.sqldelight:coroutines-extensions", version.ref = "sqlDelight" }
 sql-delight-native-driver = { module = "app.cash.sqldelight:native-driver", version.ref = "sqlDelight" }

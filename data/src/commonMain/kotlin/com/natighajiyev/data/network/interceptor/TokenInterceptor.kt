@@ -10,7 +10,7 @@ import io.ktor.http.HttpHeaders
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 
-fun TokenInterceptor(
+fun tokenInterceptor(
     service: TokenService,
     manager: TokenManager,
 ) = createClientPlugin("TokenInterceptor") {

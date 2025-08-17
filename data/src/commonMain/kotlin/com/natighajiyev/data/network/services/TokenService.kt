@@ -1,5 +1,6 @@
 package com.natighajiyev.data.network.services
 
+import com.natighajiyev.data.network.NetworkConfig.BASE_URL
 import com.natighajiyev.data.network.services.model.TokenResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -16,7 +17,7 @@ class TokenService(val httpClient: HttpClient) {
 
     suspend fun updateToken(refreshToken: String): TokenResponse {
         return httpClient.submitForm(
-            url = "/update-token",
+            url = "$BASE_URL/update-token",
             formParameters = parameters { append("refreshToken", refreshToken) }
         ).body<TokenResponse>()
     }

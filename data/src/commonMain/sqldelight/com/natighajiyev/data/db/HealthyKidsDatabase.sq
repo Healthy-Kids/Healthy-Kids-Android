@@ -1,4 +1,8 @@
+import kotlin.Boolean;
+
+
 CREATE TABLE Token(
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     refreshToken TEXT NOT NULL,
     accessToken TEXT
 );
@@ -12,3 +16,16 @@ SELECT Token.* FROM Token;
 
 clearToken:
 DELETE FROM Token;
+
+
+CREATE TABLE UserHasSeen(
+    id INTEGER NOT NULL PRIMARY KEY,
+    isViewed INTEGER AS Boolean NOT NULL
+);
+
+saveAsViewed:
+INSERT INTO UserHasSeen(id, isViewed)
+VALUES(?, ?);
+
+hasUserViewedBefore:
+SELECT UserHasSeen.* FROM UserHasSeen;

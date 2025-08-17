@@ -3,7 +3,7 @@ package com.natighajiyev.data.local
 import app.cash.sqldelight.db.SqlDriver
 import android.content.Context
 import app.cash.sqldelight.driver.android.AndroidSqliteDriver
-import org.project.healthykids.db.HealthyKidsDatabase
+import com.natighajiyev.data.db.HealthyKidsDatabase
 
 actual class DatabaseDriverFactory(private val androidContext: Context) {
 

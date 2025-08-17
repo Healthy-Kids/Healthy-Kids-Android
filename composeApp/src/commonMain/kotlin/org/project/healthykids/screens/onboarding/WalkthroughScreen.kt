@@ -1,13 +1,11 @@
-package org.project.healthykids.screens
+package org.project.healthykids.screens.onboarding
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -24,6 +22,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -33,30 +32,31 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.natighajiyev.common.colors.Grayscale50
 import com.natighajiyev.common.colors.Grayscale900
 import com.natighajiyev.common.colors.PrimaryColors
-import com.natighajiyev.common.colors.PrimaryColors.BackgroundColor
 import healthykids.composeapp.generated.resources.Res
-import healthykids.composeapp.generated.resources.bottomVector
 import healthykids.composeapp.generated.resources.healthy_kids
 import healthykids.composeapp.generated.resources.next
-import healthykids.composeapp.generated.resources.topVector
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.Font
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
+import org.koin.mp.KoinPlatform.getKoin
 import org.project.healthykids.common.AppFonts
 import org.project.healthykids.models.WalkthroughModel
+import org.project.healthykids.screens.onboarding.contract.OnboardingViewModel
+
 
 //@Preview
 @Composable
 fun WalkthroughScreen(
     modifier: Modifier = Modifier,
-    walkthroughList: List<WalkthroughModel>,
     onFinished: () -> Unit,
 ) {
-    val pagerState = rememberPagerState(initialPage = 0) { walkthroughList.size }
+    val viewModel: OnboardingViewModel = getKoin().get()
+    val state = remember { viewModel.state }
+
+    val pagerState = rememberPagerState(initialPage = 0) { state.value.list.size }
     val coroutineScope = rememberCoroutineScope()
 
     Column(
@@ -81,10 +81,10 @@ fun WalkthroughScreen(
             modifier = modifier.fillMaxWidth(),
             state = pagerState
         ) { page ->
-            WalkthroughComponent(walkthroughModel = walkthroughList[page])
+            WalkthroughComponent(walkthroughModel = state.value.list[page])
         }
 
-        AnimatedDotSwipe(count = walkthroughList.size, pagerState = pagerState)
+        AnimatedDotSwipe(count = state.value.list.size, pagerState = pagerState)
 
 
         Button(
@@ -94,8 +94,7 @@ fun WalkthroughScreen(
             shape = RoundedCornerShape(12.dp),
             onClick = {
                 coroutineScope.launch {
-                    if (pagerState.currentPage >= walkthroughList.lastIndex) {
-
+                    if (pagerState.currentPage >= state.value.list.lastIndex) {
                         onFinished()
                     } else {
                         animateCarouselScrollPager(pagerState)
