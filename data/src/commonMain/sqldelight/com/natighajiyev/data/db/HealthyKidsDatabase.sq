@@ -1,0 +1,14 @@
+CREATE TABLE Token(
+    refreshToken TEXT NOT NULL,
+    accessToken TEXT
+);
+
+insertToken:
+INSERT INTO Token(refreshToken, accessToken)
+VALUES(?, ?);
+
+selectToken:
+SELECT Token.* FROM Token;
+
+clearToken:
+DELETE FROM Token;
