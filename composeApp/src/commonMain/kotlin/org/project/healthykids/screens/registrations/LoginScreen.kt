@@ -27,19 +27,47 @@ import org.jetbrains.compose.resources.Font
 import org.jetbrains.compose.resources.stringResource
 import org.project.healthykids.common.AppFonts
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.navigation.NavController
 import healthykids.composeapp.generated.resources.unvisibility
 import healthykids.composeapp.generated.resources.visibility
+import kotlinx.coroutines.flow.collectLatest
 import org.jetbrains.compose.resources.painterResource
+import org.project.healthykids.common.MessageDisplayer
+import org.project.healthykids.navigation.Navigation
+import org.project.healthykids.screens.registrations.contract.RegistrationContract
+import org.project.healthykids.screens.registrations.contract.RegistrationViewModel
 
+//TODO: Update actions based on viewModel and navController
 @Composable
 fun LoginScreen(
     modifier: Modifier = Modifier,
-    onLoginClick: () -> Unit,
-    onForgotPasswordClick: () -> Unit
+    messageDisplayer: MessageDisplayer,
+    viewModel: RegistrationViewModel,
+    navController: NavController,
 ) {
+    val state = viewModel.state
+
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
+
+    LaunchedEffect(Unit){
+        viewModel.effect.collectLatest { effect ->
+
+            when(effect) {
+                is RegistrationContract.Effect.Navigate -> {
+                    state.value.result?.let {
+                        if (it.resultCode in 200..299)
+                            navController.navigate(Navigation.HomeNav.EntryPoint)
+                    }
+                }
+
+                is RegistrationContract.Effect.WrongInputFormat -> {
+                    messageDisplayer.showToast("Wrong email or password format!")
+                }
+            }
+        }
+    }
 
     Column(
         modifier = Modifier
@@ -56,7 +84,7 @@ fun LoginScreen(
         ) {
             Text(
                 text = stringResource(Res.string.login_title),
-                style = MaterialTheme.typography.headlineSmall.copy(
+                style = TextStyle(
                     fontSize = 27.sp,
                     fontFamily = FontFamily(Font(AppFonts.Montserrat_Bold)),
                     color = PrimaryColors.Primary900,
@@ -133,7 +161,9 @@ fun LoginScreen(
             verticalArrangement = Arrangement.Center
         ) {
             Button(
-                onClick = onLoginClick,
+                onClick = {
+                    viewModel.onEvent(RegistrationContract.Intent.Login(email, password))
+                },
                 colors = ButtonDefaults.buttonColors(containerColor = PrimaryColors.Primary900),
                 shape = RoundedCornerShape(15.dp),
                 modifier = Modifier
@@ -169,7 +199,10 @@ fun LoginScreen(
                     ),
                     fontSize = 15.sp,
                     textAlign = TextAlign.Center,
-                    modifier = Modifier.clickable(onClick = onForgotPasswordClick)
+                    modifier = Modifier.clickable(onClick = {
+                        //TODO: Add click action onFinish
+                        navController.navigate(Navigation.RegistrationNav.ForgotPassword)
+                    })
                 )
             }
         }

@@ -27,20 +27,48 @@ import org.jetbrains.compose.resources.Font
 import org.jetbrains.compose.resources.stringResource
 import org.project.healthykids.common.AppFonts
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.navigation.NavController
+import kotlinx.coroutines.flow.collectLatest
+import org.koin.core.parameter.parameterSetOf
+import org.project.healthykids.common.MessageDisplayer
+import org.project.healthykids.navigation.Navigation
+import org.project.healthykids.screens.registrations.contract.RegistrationContract
+import org.project.healthykids.screens.registrations.contract.RegistrationViewModel
 
 
 @Composable
 fun RegistrationScreen(
     modifier: Modifier = Modifier,
-    onRegisterClick: () -> Unit,
-    onLoginClick: () -> Unit
+    messageDisplayer: MessageDisplayer,
+    navController: NavController,
+    viewModel: RegistrationViewModel,
 ) {
+    val state = viewModel.state
+
     var firstName by remember { mutableStateOf("") }
     var lastName by remember { mutableStateOf("") }
     var phone by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
     var consent by remember { mutableStateOf(false) }
 
+    LaunchedEffect(Unit){
+        viewModel.effect.collectLatest { effect ->
+
+            when(effect) {
+                is RegistrationContract.Effect.Navigate -> {
+                    state.value.result?.let {
+                        if (it.resultCode in 200..299)
+                            navController.navigate(Navigation.RegistrationNav.Login)
+                    }
+                }
+
+                is RegistrationContract.Effect.WrongInputFormat -> {
+                    messageDisplayer.showToast("Wrong input format!")
+                }
+            }
+        }
+    }
 
     Column(
         modifier = Modifier
@@ -168,7 +196,14 @@ fun RegistrationScreen(
             verticalArrangement = Arrangement.Center
         ) {
             Button(
-                onClick = onRegisterClick,
+                onClick = {
+                    viewModel.onEvent(RegistrationContract.Intent.CreateAccount(
+                        email = email,
+                        fullname = "$firstName $lastName",
+                        phone = phone,
+                        password = password     // TODO: Why password is not implemented?
+                    ))
+                },
                 enabled = consent,
                 colors = ButtonDefaults.buttonColors(containerColor = PrimaryColors.Primary900),
                 shape = RoundedCornerShape(15.dp),
@@ -204,7 +239,9 @@ fun RegistrationScreen(
                     ),
                     fontSize = 15.sp,
                     textAlign = TextAlign.Center,
-                    modifier = Modifier.clickable(onClick = onLoginClick)
+                    modifier = Modifier.clickable(onClick = {
+                        navController.navigate(Navigation.RegistrationNav.Login)
+                    })
                 )
             }
         }

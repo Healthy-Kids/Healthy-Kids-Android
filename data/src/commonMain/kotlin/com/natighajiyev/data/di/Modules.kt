@@ -7,8 +7,13 @@ import com.natighajiyev.data.network.services.RegistrationService
 import com.natighajiyev.data.network.services.TokenService
 import com.natighajiyev.data.repository.RegistrationRepositoryImpl
 import com.natighajiyev.domain.repository.RegistrationRepository
+import com.natighajiyev.domain.usecases.registration.CheckOtpUseCase
+import com.natighajiyev.domain.usecases.registration.CreateAccountUseCase
 import com.natighajiyev.domain.usecases.registration.GetUserInfoUseCase
 import com.natighajiyev.domain.usecases.registration.HasUserViewedWalkthroughUseCase
+import com.natighajiyev.domain.usecases.registration.LoginUseCase
+import com.natighajiyev.domain.usecases.registration.ResetPasswordUseCase
+import com.natighajiyev.domain.usecases.registration.SetNewPasswordUseCase
 import com.natighajiyev.domain.usecases.registration.UserViewedWalkthroughUseCase
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
@@ -66,8 +71,13 @@ val repository = module {
     single<RegistrationRepository> { RegistrationRepositoryImpl(get(), get()) }
 }
 
-val useCases = module {
+val registrationUseCases = module {
     single { GetUserInfoUseCase(get()) }
     single { HasUserViewedWalkthroughUseCase(get()) }
     single { UserViewedWalkthroughUseCase(get()) }
+    single { LoginUseCase(get()) }
+    single { CreateAccountUseCase(get()) }
+    single { ResetPasswordUseCase(get()) }
+    single { CheckOtpUseCase(get()) }
+    single { SetNewPasswordUseCase(get()) }
 }

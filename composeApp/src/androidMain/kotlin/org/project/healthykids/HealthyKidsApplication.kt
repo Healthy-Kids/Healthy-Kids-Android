@@ -5,6 +5,7 @@ import com.natighajiyev.data.di.databaseModule
 import com.natighajiyev.data.di.sharedModules
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.GlobalContext.startKoin
+import org.project.healthykids.di.toastModule
 import org.project.healthykids.di.viewModelsModule
 
 class HealthyKidsApplication : Application() {
@@ -14,7 +15,7 @@ class HealthyKidsApplication : Application() {
     }
 
     private fun initKoin(){
-        val modules = sharedModules + viewModelsModule + databaseModule
+        val modules = sharedModules + viewModelsModule + databaseModule + toastModule
         startKoin {
             androidContext(this@HealthyKidsApplication)
             modules(modules)

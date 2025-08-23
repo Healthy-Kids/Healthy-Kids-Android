@@ -2,6 +2,7 @@ package org.project.healthykids.di
 
 import org.koin.dsl.module
 import org.project.healthykids.screens.onboarding.contract.OnboardingViewModel
+import org.project.healthykids.screens.registrations.contract.RegistrationViewModel
 
 val viewModelsModule = module {
     single {
@@ -9,6 +10,16 @@ val viewModelsModule = module {
             get(),
             get(),
             get()
+        )
+    }
+
+    single {
+        RegistrationViewModel(
+            get(),
+            get(),
+            get(),
+            get(),
+            get(),
         )
     }
 }
