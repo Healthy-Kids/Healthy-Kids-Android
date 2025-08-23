@@ -12,11 +12,13 @@ androidx-lifecycle = "2.9.0"
 androidx-testExt = "1.2.1"
 composeHotReload = "1.0.0-alpha10"
 composeMultiplatform = "1.8.1"
+composeNavigation = "1.7.0"
 junit = "4.13.2"
 kmpViewmodel = "1.6.10"
 kotlin = "2.1.21"
 kotlinx-coroutines = "1.10.2"
 kotlinStdlib = "2.1.21"
+navigationComposeVersion = "2.9.3"
 runner = "1.5.2"
 core = "1.5.0"
 coilVersion = "2.2.2"
@@ -35,6 +37,8 @@ koin = "4.0.3"
 sqlDelight = "2.0.2"
 
 [libraries]
+androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationComposeVersion" }
+compose-navigation = { module = "org.jetbrains.compose.navigation:compose-navigation", version.ref = "composeNavigation" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlin-testJunit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
 junit = { module = "junit:junit", version.ref = "junit" }

@@ -20,27 +20,35 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 
 import healthykids.composeapp.generated.resources.Res
 import healthykids.composeapp.generated.resources.compose_multiplatform
-import healthykids.composeapp.generated.resources.ic_walkthrough_1
-import healthykids.composeapp.generated.resources.ic_walkthrough_2
-import healthykids.composeapp.generated.resources.ic_walkthrough_3
-import org.project.healthykids.models.WalkthroughModel
 import org.project.healthykids.screens.registrations.RegistrationScreen
 import org.project.healthykids.screens.onboarding.WalkthroughScreen
 import org.project.healthykids.screens.registrations.LoginScreen
 import org.project.healthykids.screens.registrations.ForgotPasswordScreen
 import org.project.healthykids.screens.registrations.OtpScreen
 import org.project.healthykids.screens.WelcomeScreen
+import org.project.healthykids.screens.main.ProfileScreens.ProfileScreen
+import org.project.healthykids.screens.main.ProfileScreens.ExaminationsScreen
+import org.project.healthykids.screens.main.ProfileScreens.AllergyScreen
+import org.project.healthykids.screens.main.ProfileScreens.LangScreen
+import org.project.healthykids.screens.main.ProfileScreens.VaccineScreen
+import org.project.healthykids.screens.main.ProfileScreens.PersonalDataScreen
+import org.project.healthykids.screens.main.ProfileScreens.ChildsScreen
 
 
-// Basit ekran router
 sealed class Screen {
     data object Walkthrough : Screen()
     data object Register : Screen()
     data object Login : Screen()
     data object ForgotPassword : Screen()
     data object Otp : Screen()
-
     data object Welcome : Screen()
+    data object Profile : Screen()
+    data object Examination : Screen()
+    data object Allergy : Screen()
+    data object Vaccine : Screen()
+    data object Lang : Screen()
+    data object  PersonalData : Screen()
+    data object ChildsScreen : Screen()
 }
 
 @Composable
@@ -80,8 +88,30 @@ fun App() {
                 onVerificationClick = { screen = Screen.Welcome
                 },
             )
-            Screen.Welcome -> WelcomeScreen {  }
-
+            Screen.Welcome -> WelcomeScreen (
+                onStartAppClick = {screen = Screen.Profile
+                },
+            )
+            Screen.Profile -> ProfileScreen (
+                onLogoutClick = {screen = Screen.Login},
+                onTabClick = {},
+                onMyChildrenClick = {screen = Screen.ChildsScreen},
+                onVaccinesClick = {screen = Screen.Vaccine},
+                onExaminationsClick = { screen = Screen.Examination},
+                onAllergyClick= { screen = Screen.Allergy},
+                onPersonalDataClick= {screen = Screen.PersonalData},
+                onLanguagesClick= { screen = Screen.Lang},
+            )
+            Screen.Examination -> ExaminationsScreen(
+                onTabClick = {},
+        onAddClick = {},
+        onItemClick ={}
+            )
+            Screen.Allergy -> AllergyScreen {}
+            Screen.Vaccine -> VaccineScreen {  }
+            Screen.Lang -> LangScreen() { }
+            Screen.PersonalData-> PersonalDataScreen {}
+            Screen.ChildsScreen -> ChildsScreen {}
         }
     }}
 }

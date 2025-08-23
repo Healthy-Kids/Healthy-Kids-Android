@@ -47,7 +47,7 @@ fun RegistrationScreen(
             .fillMaxSize()
             .padding(horizontal = 24.dp, vertical = 24.dp)
     ) {
-        // 20% Başlık
+
         Box(
             modifier = Modifier
                 .weight(0.2f)

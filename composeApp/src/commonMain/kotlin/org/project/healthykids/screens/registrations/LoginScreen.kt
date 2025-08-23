@@ -47,7 +47,7 @@ fun LoginScreen(
             .padding(horizontal = 24.dp, vertical = 24.dp)
 
     ) {
-        // 20% Başlık
+
         Box(
             modifier = Modifier
                 .weight(0.2f)
@@ -65,14 +65,14 @@ fun LoginScreen(
             )
         }
 
-        // 50% Inputlar
+
         Column(
             modifier = Modifier
                 .weight(0.5f)
                 .fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // Email
+
             OutlinedTextField(
                 value = email,
                 onValueChange = { email = it },
@@ -93,7 +93,7 @@ fun LoginScreen(
 
             Spacer(Modifier.height(10.dp))
 
-            // Password
+
             OutlinedTextField(
                 value = password,
                 onValueChange = { password = it },
@@ -124,7 +124,7 @@ fun LoginScreen(
             )
         }
 
-        // 30% Buton + Alt linkler
+
         Column(
             modifier = Modifier
                 .weight(0.3f)

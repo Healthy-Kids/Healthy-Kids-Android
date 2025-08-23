@@ -28,4 +28,16 @@
     <string name="forgot_password_next">Далее</string>
     <string name="back_button">Назад</string>
 
+
+    <!-- AllergyScreen -->
+    <string name="allergy_title">Аллергия</string>
+    <string name="allergy_subtitle">На что у вашего ребенка есть аллергия?</string>
+    <string name="allergy_search_placeholder">Поиск аллергии</string>
+    <string name="search_content_description">Search</string>
+    <string name="dropdown_content_description">Dropdown</string>
+
+    <!-- AllergyItem (example) -->
+    <string name="allergy_item_example_title">пример</string>
+    <string name="allergy_item_example_description">Это пример текста для раскрытого элемента</string>
+
 </resources>
