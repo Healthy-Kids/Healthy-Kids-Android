@@ -14,24 +14,53 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.natighajiyev.common.colors.PrimaryColors
 import healthykids.composeapp.generated.resources.Res
 import healthykids.composeapp.generated.resources.email_label
 import healthykids.composeapp.generated.resources.forgot_password_title
 import healthykids.composeapp.generated.resources.forgot_password_description
 import healthykids.composeapp.generated.resources.forgot_password_next
+import kotlinx.coroutines.flow.collectLatest
 import org.jetbrains.compose.resources.Font
 import org.jetbrains.compose.resources.stringResource
 import org.project.healthykids.common.AppFonts
+import org.project.healthykids.common.MessageDisplayer
+import org.project.healthykids.navigation.Navigation
+import org.project.healthykids.screens.registrations.contract.RegistrationContract
+import org.project.healthykids.screens.registrations.contract.RegistrationViewModel
 
 @Composable
 fun ForgotPasswordScreen(
-    onSendClick: (String) -> Unit,
+    modifier: Modifier = Modifier,
+    messageDisplayer: MessageDisplayer,
+    navController: NavController,
+    viewModel: RegistrationViewModel,
 ) {
+    val state = viewModel.state
     var email by remember { mutableStateOf("") }
 
+    LaunchedEffect(Unit){
+        viewModel.effect.collectLatest { effect ->
+
+            when(effect) {
+                is RegistrationContract.Effect.Navigate -> {
+                    state.value.result?.let {
+                        if (it.resultCode in 200..299)
+                            navController.navigate(Navigation.RegistrationNav.Otp)
+                    }
+                }
+
+                is RegistrationContract.Effect.WrongInputFormat -> {
+                    messageDisplayer.showToast("Wrong input format!")
+                }
+            }
+        }
+    }
+
+
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .background(PrimaryColors.BackgroundColor)
             .padding(horizontal = 24.dp, vertical = 24.dp)
@@ -39,7 +68,7 @@ fun ForgotPasswordScreen(
 
 
         Column(
-            modifier = Modifier
+            modifier = modifier
                 .weight(0.25f)
                 .fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -53,7 +82,7 @@ fun ForgotPasswordScreen(
                 textAlign = TextAlign.Center
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = modifier.height(16.dp))
 
             Text(
                 text = stringResource(Res.string.forgot_password_description),
@@ -65,7 +94,7 @@ fun ForgotPasswordScreen(
 
 
         Column(
-            modifier = Modifier
+            modifier = modifier
                 .weight(0.45f)
                 .fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally
@@ -85,23 +114,23 @@ fun ForgotPasswordScreen(
                     focusedTextColor = PrimaryColors.Primary900,
                     unfocusedTextColor = PrimaryColors.Primary900
                 ),
-                modifier = Modifier.fillMaxWidth()
+                modifier = modifier.fillMaxWidth()
             )
 
-            Spacer(modifier = Modifier.height(40.dp))
+            Spacer(modifier = modifier.height(40.dp))
         }
         Column(
-            modifier = Modifier
+            modifier = modifier
                 .weight(0.3f)
                 .fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
             Button(
-                onClick = { onSendClick(email) },
+                onClick = { viewModel.onEvent(RegistrationContract.Intent.ResetPassword(email)) },
                 colors = ButtonDefaults.buttonColors(containerColor = PrimaryColors.Primary900),
                 shape = RoundedCornerShape(15.dp),
-                modifier = Modifier
+                modifier = modifier
                     .fillMaxWidth()
                     .height(52.dp)
             ) {

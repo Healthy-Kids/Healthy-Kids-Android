@@ -32,6 +32,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.natighajiyev.common.colors.Grayscale900
 import com.natighajiyev.common.colors.PrimaryColors
 import healthykids.composeapp.generated.resources.Res
@@ -51,9 +52,9 @@ import org.project.healthykids.screens.onboarding.contract.OnboardingViewModel
 @Composable
 fun WalkthroughScreen(
     modifier: Modifier = Modifier,
-    onFinished: () -> Unit,
+    navController: NavController,
+    viewModel: OnboardingViewModel
 ) {
-    val viewModel: OnboardingViewModel = getKoin().get()
     val state = remember { viewModel.state }
 
     val pagerState = rememberPagerState(initialPage = 0) { state.value.list.size }
@@ -95,7 +96,7 @@ fun WalkthroughScreen(
             onClick = {
                 coroutineScope.launch {
                     if (pagerState.currentPage >= state.value.list.lastIndex) {
-                        onFinished()
+                        // TODO: Add navController based navigation
                     } else {
                         animateCarouselScrollPager(pagerState)
                     }

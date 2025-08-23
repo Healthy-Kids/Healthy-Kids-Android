@@ -17,24 +17,51 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.natighajiyev.common.colors.PrimaryColors
 import healthykids.composeapp.generated.resources.Res
 import healthykids.composeapp.generated.resources.forgot_password_title
 import healthykids.composeapp.generated.resources.otp_description
 import healthykids.composeapp.generated.resources.forgot_password_next
+import kotlinx.coroutines.flow.collectLatest
 import org.jetbrains.compose.resources.Font
 import org.jetbrains.compose.resources.stringResource
 import org.project.healthykids.common.AppFonts
+import org.project.healthykids.common.MessageDisplayer
+import org.project.healthykids.navigation.Navigation
+import org.project.healthykids.screens.registrations.contract.RegistrationContract
+import org.project.healthykids.screens.registrations.contract.RegistrationViewModel
 import kotlin.also
 
 @Composable
 fun OtpScreen(
-    onVerificationClick: (String) -> Unit,
+    messageDisplayer: MessageDisplayer,
+    navController: NavController,
+    viewModel: RegistrationViewModel,
 ) {
+    val state = viewModel.state
+
     val otpLength = 6
     var otp by remember { mutableStateOf(MutableList(otpLength) { "" }) }
     val focusRequesters = List(otpLength) { FocusRequester() }
-    val focusManager = LocalFocusManager.current
+
+    LaunchedEffect(Unit){
+        viewModel.effect.collectLatest { effect ->
+
+            when(effect) {
+                is RegistrationContract.Effect.Navigate -> {
+                    state.value.result?.let {
+                        if (it.resultCode in 200..299)
+                            navController.navigate(Navigation.RegistrationNav.Login)
+                    }
+                }
+
+                is RegistrationContract.Effect.WrongInputFormat -> {
+                    messageDisplayer.showToast("Wrong input format!")
+                }
+            }
+        }
+    }
 
     Column(
         modifier = Modifier
@@ -125,11 +152,9 @@ fun OtpScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            val finalOtp = otp.joinToString("")
 
             Button(
-
-                onClick = { onVerificationClick(finalOtp) },
+                onClick = { viewModel.onEvent(RegistrationContract.Intent.CheckOtp(otp)) },
                 colors = ButtonDefaults.buttonColors(containerColor = PrimaryColors.Primary900),
                 shape = RoundedCornerShape(15.dp),
                 modifier = Modifier
