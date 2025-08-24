@@ -13,19 +13,37 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.natighajiyev.common.colors.PrimaryColors
+import com.natighajiyev.domain.network.response.ChildSelectionListResponse
+import com.natighajiyev.domain.network.response.ChildrenSelectionListResponse
 import healthykids.composeapp.generated.resources.Res
 import healthykids.composeapp.generated.resources.ic_walkthrough_1
+import kotlinx.coroutines.flow.collectLatest
 import org.jetbrains.compose.resources.painterResource
+import org.project.healthykids.screens.main.profile.contract.ProfileContract
+import org.project.healthykids.screens.main.profile.contract.ProfileViewModel
 
 @Composable
-fun ChildsScreen(
-    currentTab: String = "Profile",
-    onTabClick: (String) -> Unit
+fun ChildrenScreen(
+    viewModel: ProfileViewModel,
+    navController: NavController,
 ) {
-    var selectedChild by remember { mutableStateOf("Назрин") }
+    val state = viewModel.state
+    LaunchedEffect(Unit) {
+        viewModel.effect.collectLatest { effect ->
+            when (effect) {
+                is ProfileContract.Effect.Navigate -> {
+                    state.value.result?.let {
+//                        if (it.resultCode in 200..299)
+//                            navController.navigate(Navigation.HomeNav.EntryPoint)
+                    }
+                }
+            }
+        }
+    }
 
-    val children = listOf("Назрин", "Эля", "Али")
+    var selectedChild by remember { mutableStateOf<ChildSelectionListResponse?>(null) }
 
     Column(
         modifier = Modifier
@@ -46,7 +64,7 @@ fun ChildsScreen(
         Spacer(modifier = Modifier.height(24.dp))
 
         // Children list
-        children.forEach { child ->
+        viewModel.state.value.childrenList?.children?.forEach { child ->
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -67,7 +85,7 @@ fun ChildsScreen(
 
                 // Name
                 Text(
-                    text = child,
+                    text = child.name,
                     fontSize = 16.sp,
                     color = PrimaryColors.Primary900,
                     modifier = Modifier.weight(1f)

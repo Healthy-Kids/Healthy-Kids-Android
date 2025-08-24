@@ -1,4 +1,4 @@
-package org.project.healthykids.screens.main.home
+package org.project.healthykids.screens.main.home.contract
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State

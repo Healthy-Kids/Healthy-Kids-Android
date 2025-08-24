@@ -1,4 +1,4 @@
-package org.project.healthykids.screens.main.home
+package org.project.healthykids.screens.main.home.contract
 
 import com.natighajiyev.domain.model.CrudModel
 import com.natighajiyev.domain.network.response.PersonalInfoResponse
