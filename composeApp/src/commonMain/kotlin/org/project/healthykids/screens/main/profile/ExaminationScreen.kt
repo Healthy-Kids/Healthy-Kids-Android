@@ -1,6 +1,5 @@
-package org.project.healthykids.screens.main.ProfileScreens
+package org.project.healthykids.screens.main.profile
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -15,7 +14,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.natighajiyev.common.colors.PrimaryColors
 import healthykids.composeapp.generated.resources.Res
-import healthykids.composeapp.generated.resources.ic_more_vert
 import healthykids.composeapp.generated.resources.Home_filled
 import healthykids.composeapp.generated.resources.Profile
 import healthykids.composeapp.generated.resources.Profile_filled
@@ -23,7 +21,6 @@ import healthykids.composeapp.generated.resources.Healthy
 import healthykids.composeapp.generated.resources.Healthy_filled
 import healthykids.composeapp.generated.resources.ic_download
 import healthykids.composeapp.generated.resources.ic_file
-import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 
 @Composable

@@ -18,6 +18,9 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import org.project.healthykids.common.GMAIL_TAIL
+import org.project.healthykids.common.SUCCESS
+import org.project.healthykids.common.WRONG_FILLED_INPUT
 import org.project.healthykids.screens.registrations.RegistrationScreen
 
 class RegistrationViewModel(
@@ -76,7 +79,14 @@ class RegistrationViewModel(
 
                     is UiResult.Error -> {
                         _state.value =
-                            _state.value.copy(error = uiResult.message, isLoading = false)
+                            _state.value.copy(
+                                error = uiResult.message,
+                                isLoading = false,
+                                result = CrudModel(
+                                    resultCode = uiResult.responseCode,
+                                    message = uiResult.message
+                                )
+                            )
                     }
 
                     is UiResult.Loading -> {
@@ -105,7 +115,13 @@ class RegistrationViewModel(
 
                     is UiResult.Error -> {
                         _state.value =
-                            _state.value.copy(error = uiResult.message, isLoading = false)
+                            _state.value.copy(
+                                error = uiResult.message, isLoading = false,
+                                result = CrudModel(
+                                    resultCode = uiResult.responseCode,
+                                    message = uiResult.message
+                                )
+                            )
                     }
 
                     is UiResult.Loading -> {
@@ -130,7 +146,14 @@ class RegistrationViewModel(
 
                     is UiResult.Error -> {
                         _state.value =
-                            _state.value.copy(error = uiResult.message, isLoading = false)
+                            _state.value.copy(
+                                error = uiResult.message,
+                                isLoading = false,
+                                result = CrudModel(
+                                    resultCode = uiResult.responseCode,
+                                    message = uiResult.message
+                                )
+                            )
                     }
 
                     is UiResult.Loading -> {
@@ -156,7 +179,14 @@ class RegistrationViewModel(
 
                     is UiResult.Error -> {
                         _state.value =
-                            _state.value.copy(error = uiResult.message, isLoading = false)
+                            _state.value.copy(
+                                error = uiResult.message,
+                                isLoading = false,
+                                result = CrudModel(
+                                    resultCode = uiResult.responseCode,
+                                    message = uiResult.message
+                                )
+                            )
                     }
 
                     is UiResult.Loading -> {
@@ -180,7 +210,14 @@ class RegistrationViewModel(
 
                     is UiResult.Error -> {
                         _state.value =
-                            _state.value.copy(error = uiResult.message, isLoading = false)
+                            _state.value.copy(
+                                error = uiResult.message,
+                                isLoading = false,
+                                result = CrudModel(
+                                    resultCode = uiResult.responseCode,
+                                    message = uiResult.message
+                                )
+                            )
                     }
 
                     is UiResult.Loading -> {
@@ -188,12 +225,5 @@ class RegistrationViewModel(
                     }
                 }
             }.launchIn(viewModelScope)
-    }
-
-
-    companion object {
-        private const val GMAIL_TAIL = "@gmail.com"
-        private const val SUCCESS = "Success"
-        private const val WRONG_FILLED_INPUT = "Fields are filled wrong"
     }
 }

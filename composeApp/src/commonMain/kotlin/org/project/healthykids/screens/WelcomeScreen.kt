@@ -31,8 +31,7 @@ import org.project.healthykids.common.AppFonts
 fun WelcomeScreen(
     modifier: Modifier = Modifier,
     onStartAppClick: () -> Unit,
-
-    ) {
+) {
 
 
     Column(
@@ -65,14 +64,16 @@ fun WelcomeScreen(
                 .fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
-        )  { Image(
+        ) {
+            Image(
                 modifier = modifier
                     .fillMaxWidth()
                     .fillMaxHeight(0.75f),
-        painter = painterResource(Res.drawable.ic_walkthrough_1),
-        contentDescription = "Walkthrough Image",
-        contentScale = ContentScale.Fit
-        )}
+                painter = painterResource(Res.drawable.ic_walkthrough_1),
+                contentDescription = "Walkthrough Image",
+                contentScale = ContentScale.Fit
+            )
+        }
         Column(
             modifier = Modifier
                 .weight(0.3f)

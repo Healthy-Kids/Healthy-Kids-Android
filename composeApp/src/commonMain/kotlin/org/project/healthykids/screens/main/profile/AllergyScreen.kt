@@ -1,4 +1,4 @@
-package org.project.healthykids.screens.main.ProfileScreens
+package org.project.healthykids.screens.main.profile
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.BorderStroke
@@ -25,10 +25,18 @@ import healthykids.composeapp.generated.resources.Healthy
 import healthykids.composeapp.generated.resources.Healthy_filled
 import healthykids.composeapp.generated.resources.ic_search
 import healthykids.composeapp.generated.resources.ic_arrow_drop_down
+import healthykids.composeapp.generated.resources.allergy_title
+import healthykids.composeapp.generated.resources.allergy_subtitle
+import healthykids.composeapp.generated.resources.allergy_search_placeholder
+import healthykids.composeapp.generated.resources.search_content_description
+import healthykids.composeapp.generated.resources.dropdown_content_description
+import healthykids.composeapp.generated.resources.allergy_item_example_title
+import healthykids.composeapp.generated.resources.allergy_item_example_description
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
-fun VaccineScreen(
+fun AllergyScreen(
     modifier: Modifier = Modifier,
     currentTab: String = "Profile",
     onTabClick: (String) -> Unit
@@ -42,14 +50,14 @@ fun VaccineScreen(
     ) {
         // Header
         Text(
-            text = "Прививка",
+            text = stringResource(Res.string.allergy_title),
             fontSize = 22.sp,
             fontWeight = FontWeight.Bold,
             color = PrimaryColors.Primary900,
             modifier = Modifier.align(Alignment.CenterHorizontally)
         )
         Text(
-            text = "Какую прививку вы делали своему ребенку?",
+            text = stringResource(Res.string.allergy_subtitle),
             fontSize = 14.sp,
             color = Color.Gray,
             modifier = Modifier.align(Alignment.CenterHorizontally)
@@ -61,11 +69,11 @@ fun VaccineScreen(
         OutlinedTextField(
             value = "",
             onValueChange = { },
-            placeholder = { Text("Поиск Прививка") },
+            placeholder = { stringResource(Res.string.allergy_search_placeholder) },
             leadingIcon = {
                 Icon(
                     painter = painterResource(Res.drawable.ic_search),
-                    contentDescription = "Search",
+                    contentDescription = stringResource(Res.string.search_content_description) ,
                     modifier = Modifier.size(16.dp),
                     tint = PrimaryColors.Primary900
                 )
@@ -90,7 +98,7 @@ fun VaccineScreen(
         // Allergy items
         Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
             repeat(5) {
-                VaccineItem(title = "пример", description = "Это пример текста для раскрытого элемента")
+                AllergyItem(title = stringResource(Res.string.allergy_item_example_title) , description = stringResource(Res.string.allergy_item_example_description) )
             }
         }
 
@@ -136,7 +144,7 @@ fun VaccineScreen(
 
 
 @Composable
-fun VaccineItem(title: String, description: String) {
+fun AllergyItem(title: String, description: String) {
     var expanded by remember { mutableStateOf(false) }
     var checked by remember { mutableStateOf(false) }
 
@@ -181,7 +189,7 @@ fun VaccineItem(title: String, description: String) {
 
                 Icon(
                     painter = painterResource(Res.drawable.ic_arrow_drop_down),
-                    contentDescription = "Dropdown",
+                    contentDescription = stringResource(Res.string.dropdown_content_description),
                     tint = PrimaryColors.Primary900,
                     modifier = Modifier
                         .size(16.dp)

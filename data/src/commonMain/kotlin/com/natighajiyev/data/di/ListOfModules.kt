@@ -6,5 +6,6 @@ val sharedModules = listOf(
     localModules,
     networkModules,
     repository,
-    registrationUseCases
+    registrationUseCases,
+    homeUseCases
 )
