@@ -3,6 +3,7 @@ package com.natighajiyev.data.di
 import com.natighajiyev.data.local.source.UserDataSource
 import com.natighajiyev.data.network.interceptor.tokenInterceptor
 import com.natighajiyev.data.network.manager.TokenManager
+import com.natighajiyev.data.network.services.HomeService
 import com.natighajiyev.data.network.services.RegistrationService
 import com.natighajiyev.data.network.services.TokenService
 import com.natighajiyev.data.repository.HomeRepositoryImpl
@@ -68,6 +69,7 @@ val localModules = module {
 
 val networkModules = module {
     single<RegistrationService> { RegistrationService(get()) }
+    single<HomeService> { HomeService(get()) }
 }
 
 val repository = module {
