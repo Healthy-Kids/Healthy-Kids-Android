@@ -13,9 +13,15 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
 import org.koin.mp.KoinPlatform.getKoin
 import org.project.healthykids.common.MessageDisplayer
+import org.project.healthykids.di.viewModelsModule
 import org.project.healthykids.navigation.Navigation.OnboardingNav.*
 import org.project.healthykids.navigation.Navigation.RegistrationNav.*
 import org.project.healthykids.navigation.Navigation.HomeNav.*
+import org.project.healthykids.screens.main.home.contract.HomeViewModel
+import org.project.healthykids.screens.main.profile.AllergyScreen
+import org.project.healthykids.screens.main.profile.ChildrenScreen
+import org.project.healthykids.screens.main.profile.ProfileScreen
+import org.project.healthykids.screens.main.profile.contract.ProfileViewModel
 import org.project.healthykids.screens.onboarding.OnboardingScreen
 import org.project.healthykids.screens.onboarding.WalkthroughScreen
 import org.project.healthykids.screens.onboarding.contract.OnboardingViewModel
@@ -97,8 +103,10 @@ fun AppNavGraph() {
             route = Navigation.HomeNav.EntryPoint.tag,
             startDestination = Welcome.tag,
         ) {
+            val homeViewModel: HomeViewModel = getKoin().get()
+            val profileViewModel: ProfileViewModel = getKoin().get()
 
-            composable(Welcome.tag){
+            composable(Welcome.tag) {
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
                     bottomBar = {
@@ -113,15 +121,36 @@ fun AppNavGraph() {
                         }
 
                         1 -> {
+                            val viewModel: HomeViewModel = getKoin().get()
                             // TODO: Home
                         }
 
-                        2-> {
+                        2 -> {
                             // TODO: Profile
                         }
 
                     }
                 }
+            }
+
+
+            composable(Allergy.tag) {
+                AllergyScreen(viewModel = profileViewModel, navController = navController)
+            }
+
+            composable(Vaccine.tag) { }
+
+            composable(Examination.tag) { }
+
+            composable(Lang.tag) { }
+
+            composable(PersonalData.tag) { }
+
+            composable(Children.tag) {
+                ChildrenScreen(
+                    viewModel = profileViewModel,
+                    navController = navController
+                )
             }
         }
     }

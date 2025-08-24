@@ -1,4 +1,4 @@
-package org.project.healthykids.screens.main.ProfileScreens
+package org.project.healthykids.screens.main.profile
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

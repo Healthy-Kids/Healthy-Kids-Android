@@ -3,10 +3,14 @@ package com.natighajiyev.data.di
 import com.natighajiyev.data.local.source.UserDataSource
 import com.natighajiyev.data.network.interceptor.tokenInterceptor
 import com.natighajiyev.data.network.manager.TokenManager
+import com.natighajiyev.data.network.services.HomeService
 import com.natighajiyev.data.network.services.RegistrationService
 import com.natighajiyev.data.network.services.TokenService
+import com.natighajiyev.data.repository.HomeRepositoryImpl
 import com.natighajiyev.data.repository.RegistrationRepositoryImpl
+import com.natighajiyev.domain.repository.HomeRepository
 import com.natighajiyev.domain.repository.RegistrationRepository
+import com.natighajiyev.domain.usecases.home.GetPersonalInfoUseCase
 import com.natighajiyev.domain.usecases.registration.CheckOtpUseCase
 import com.natighajiyev.domain.usecases.registration.CreateAccountUseCase
 import com.natighajiyev.domain.usecases.registration.GetUserInfoUseCase
@@ -65,10 +69,12 @@ val localModules = module {
 
 val networkModules = module {
     single<RegistrationService> { RegistrationService(get()) }
+    single<HomeService> { HomeService(get()) }
 }
 
 val repository = module {
     single<RegistrationRepository> { RegistrationRepositoryImpl(get(), get()) }
+    single<HomeRepository> { HomeRepositoryImpl( get()) }
 }
 
 val registrationUseCases = module {
@@ -80,4 +86,12 @@ val registrationUseCases = module {
     single { ResetPasswordUseCase(get()) }
     single { CheckOtpUseCase(get()) }
     single { SetNewPasswordUseCase(get()) }
+}
+
+val homeUseCases = module {
+    single { GetPersonalInfoUseCase(get()) }
+}
+
+val profileUseCases = module {
+    single {  }
 }

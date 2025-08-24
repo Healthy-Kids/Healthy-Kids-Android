@@ -1,9 +1,7 @@
-package org.project.healthykids.screens.main.ProfileScreens
+package org.project.healthykids.screens.main.profile
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -17,11 +15,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.natighajiyev.common.colors.PrimaryColors
 import healthykids.composeapp.generated.resources.Res
-import healthykids.composeapp.generated.resources.Home_filled
-import healthykids.composeapp.generated.resources.Profile
-import healthykids.composeapp.generated.resources.Profile_filled
-import healthykids.composeapp.generated.resources.Healthy
-import healthykids.composeapp.generated.resources.Healthy_filled
 import healthykids.composeapp.generated.resources.ic_arrow_drop_down
 import org.jetbrains.compose.resources.painterResource
 
