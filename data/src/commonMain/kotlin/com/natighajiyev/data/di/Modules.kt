@@ -91,3 +91,7 @@ val registrationUseCases = module {
 val homeUseCases = module {
     single { GetPersonalInfoUseCase(get()) }
 }
+
+val profileUseCases = module {
+    single {  }
+}

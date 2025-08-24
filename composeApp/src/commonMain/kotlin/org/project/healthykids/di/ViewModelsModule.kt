@@ -1,7 +1,7 @@
 package org.project.healthykids.di
 
 import org.koin.dsl.module
-import org.project.healthykids.screens.main.home.HomeViewModel
+import org.project.healthykids.screens.main.home.contract.HomeViewModel
 import org.project.healthykids.screens.onboarding.contract.OnboardingViewModel
 import org.project.healthykids.screens.registrations.contract.RegistrationViewModel
 
