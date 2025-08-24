@@ -3,10 +3,10 @@ package org.project.healthykids.navigation
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -16,6 +16,15 @@ import org.project.healthykids.common.MessageDisplayer
 import org.project.healthykids.navigation.Navigation.OnboardingNav.*
 import org.project.healthykids.navigation.Navigation.RegistrationNav.*
 import org.project.healthykids.navigation.Navigation.HomeNav.*
+import org.project.healthykids.screens.main.healthy.EyesScreen
+import org.project.healthykids.screens.main.healthy.HealthyScreen
+import org.project.healthykids.screens.main.profile.AllergyScreen
+import org.project.healthykids.screens.main.profile.ChildsScreen
+import org.project.healthykids.screens.main.profile.ExaminationsScreen
+import org.project.healthykids.screens.main.profile.LangScreen
+import org.project.healthykids.screens.main.profile.PersonalDataScreen
+import org.project.healthykids.screens.main.profile.ProfileScreen
+import org.project.healthykids.screens.main.profile.VaccineScreen
 import org.project.healthykids.screens.onboarding.OnboardingScreen
 import org.project.healthykids.screens.onboarding.WalkthroughScreen
 import org.project.healthykids.screens.onboarding.contract.OnboardingViewModel
@@ -34,8 +43,132 @@ fun AppNavGraph() {
 
     NavHost(
         navController = navController,
-        startDestination = Navigation.RegistrationNav.EntryPoint.tag
+        startDestination = Healthy.tag
     ) {
+        composable(Healthy.tag) {
+            HealthyScreen(
+
+                modifier = Modifier.fillMaxSize(),
+                currentTab = "Healthy",
+            onPortfolioClick = { navController.navigate("portfolio") },
+            onSportClick = { navController.navigate("sport") },
+            onEyesClick = { navController.navigate("eyes") },
+            onFoodClick = { navController.navigate("food") },
+            onIqClick = { navController.navigate("iqTest") },
+            onNervousClick = { navController.navigate("nervousTest") },
+                onTabClick = { tab ->
+                    when (tab) {
+                        "Healthy" -> navController.navigate(Healthy.tag) {
+                            popUpTo(Healthy.tag) { inclusive = true }
+                        }
+
+                        "Profile" -> navController.navigate(Profile.tag) {
+                            popUpTo(Profile.tag) { inclusive = true }
+                        }
+                    }
+                }
+
+            )
+        }
+        composable("portfolio") {
+           // PortfolioScreen()
+        }
+        composable("sport") {
+          //  SportScreen()
+        }
+        composable("eyes") {
+            EyesScreen(
+                onNextClick = { }
+            )
+        }
+        composable("food") {
+          //  FoodScreen()
+        }
+        composable("iqTest") {
+          //  IqTestScreen()
+        }
+        composable("nervousTest") {
+          //  NervousTestScreen()
+        }
+
+            composable(Profile.tag) {
+                ProfileScreen(
+                    modifier = Modifier.fillMaxSize(),
+                    onLogoutClick = {  },
+                    onMyChildrenClick = { navController.navigate("children") },
+                    onVaccinesClick = { navController.navigate("vaccines") },
+                    onExaminationsClick = { navController.navigate("examinations") },
+                    onAllergyClick = { navController.navigate("allergy") },
+                    onPersonalDataClick = { navController.navigate("personalData") },
+                    onLanguagesClick = { navController.navigate("languages") },
+                    currentTab = "Profile",
+                    onTabClick = { tab ->
+                        when (tab) {
+                            "Healthy" -> navController.navigate(Healthy.tag) {
+                                popUpTo(Healthy.tag) { inclusive = true }
+                            }
+
+                            "Profile" -> navController.navigate(Profile.tag) {
+                                popUpTo(Profile.tag) { inclusive = true }
+                            }
+                        }
+                    }
+                )
+            }
+
+        composable("children") {
+            ChildsScreen(
+                onTabClick = { index ->
+                }
+            )
+        }
+
+        composable("vaccines") {
+             VaccineScreen(
+                 onTabClick = { index ->
+                 }
+             )
+        }
+
+        composable("examinations") {
+             ExaminationsScreen(
+                 modifier = Modifier.fillMaxSize(),
+                 currentTab = "Profile",
+                 onTabClick = { tab ->
+                 },
+                 onAddClick = {
+                 },
+                 onItemClick = { itemId ->
+                 }
+             )
+        }
+
+        composable("allergy") {
+             AllergyScreen(
+                 modifier = Modifier.fillMaxSize(),
+                 currentTab = "Profile",
+                 onTabClick = { tab ->
+                 },
+             )
+        }
+
+        composable("personalData") {
+             PersonalDataScreen(
+                 currentTab = "Profile",
+                 onTabClick = { tab ->
+                 },
+             )
+        }
+
+        composable("languages") {
+             LangScreen(
+                 currentTab = "Profile",
+                 onTabClick = { tab ->
+                 },
+             )
+        }
+
+
 
         navigation(
             route = Navigation.OnboardingNav.EntryPoint.tag,
@@ -109,7 +242,7 @@ fun AppNavGraph() {
 
                     when (navState.intValue) {
                         0 -> {
-                            // TODO: Healthy
+                            navController.navigate("children")
                         }
 
                         1 -> {
@@ -117,12 +250,13 @@ fun AppNavGraph() {
                         }
 
                         2-> {
-                            // TODO: Profile
+                            navController.navigate("profile")
                         }
 
                     }
                 }
             }
+
         }
     }
 }

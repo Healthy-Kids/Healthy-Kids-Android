@@ -13,6 +13,9 @@ sealed interface Navigation {
         data object Lang : HomeNav("Lang")
         data object PersonalData : HomeNav("PersonalData")
         data object Children : HomeNav("Children")
+        data object Healthy : HomeNav("Healthy")
+        data object eyes : HomeNav("eyes")
+
     }
 
     open class RegistrationNav(override val tag: String = "RegisterEntryPoint"): Navigation {
